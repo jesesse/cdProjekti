@@ -8,7 +8,7 @@ import './styles/main.css'
 function App() {
 
   const [cdList, setCdList] = React.useState([])
-  const [cd, setCd] = React.useState({id: new Date().getMilliseconds().toString(), artist: "", title: ""})
+  const [cd, setCd] = React.useState({id: new Date().getMilliseconds().toString()})
   const [isFormOpen, setIsFormOpen] = React.useState(false)
 
   function openForm(){
@@ -16,6 +16,7 @@ function App() {
   }
 
   function handleChange(event){
+
     const {name, value} = event.target;
     setCd(prev => {
       return {
@@ -23,6 +24,7 @@ function App() {
         [name]: value
       }
     })
+    
   }
 
   function addCd(e){
@@ -32,13 +34,19 @@ function App() {
       id: new Date().getMilliseconds().toString()
     })
     setIsFormOpen(false)
+    console.log(cdList)
 
+  }
+
+  function deleteCd(e, id){
+    e.stopPropagation()
+    setCdList(prev => prev.filter(cd => cd.id !== id))
   }
 
 
   return (
     <div className="container">
-      <Library openForm={openForm} cdList={cdList}>
+      <Library deleteCd={deleteCd} openForm={openForm} cdList={cdList}>
       </Library>
       {isFormOpen && <Overlay onClick={()=>{setIsFormOpen(false)}}></Overlay>}
       {isFormOpen && <AddCdForm handleChange={handleChange} addCd={addCd}></AddCdForm>}

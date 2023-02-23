@@ -17,3 +17,13 @@ label{
     display: flex;
     justify-content: end;
 }
+
+fieldset{
+    display: flex;
+    
+}
+
+fieldset>label{
+    width: auto;
+    margin-left: 20px;
+}
