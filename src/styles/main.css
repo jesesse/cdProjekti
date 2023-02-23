@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    background-color: rgb(50, 56, 54);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+label{
+    width: 50px;
+    display: flex;
+    justify-content: end;
+}
