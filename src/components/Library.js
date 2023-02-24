@@ -15,7 +15,10 @@ const Library = (props) => {
                 artist={cd.artist}
                 title={cd.title}
                 listened={cd.listened}
-                deleteCd={props.deleteCd}>
+                deleteCd={props.deleteCd}
+                openEditForm={props.openEditForm}
+                handleChange={props.handleChange}
+                >    
             </Cd>
         )
     })

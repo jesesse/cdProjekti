@@ -1,20 +1,19 @@
 import React from "react";
-import Button from "./Button";
 import styled from "styled-components";
 
 const Cd = (props) => {
 
-    const[clicked, setClicked] = React.useState(false)
-    console.log(props)
+    const [clicked, setClicked] = React.useState(false)
 
     return (
-        <StyledCd clicked={clicked} onClick={()=>{setClicked(!clicked)}}>
+        <StyledCd clicked={clicked} onClick={(e) => {e.stopPropagation(); setClicked(!clicked) }}>
             {!clicked && <div className="artist">{props.artist}</div>}
             {!clicked && <div className="title">{props.title}</div>}
-            {clicked && <div className="title">Artist: {props.artist}</div>}
+            {clicked && <div className="title">Artist: {props.artist} </div>}
             {clicked && <div className="title">Album: {props.title}</div>}
             {clicked && <div className="title">Listened: {props.listened}</div>}
-            <button onClick={(e) => {props.deleteCd(e, props.id)}} >DELETE</button>
+            <button onClick={(e) => { props.deleteCd(e, props.id) }} >DELETE</button>
+            <button onClick={(e) => { props.openEditForm(props.id) }} >EDIT</button>
         </StyledCd>
     )
 
