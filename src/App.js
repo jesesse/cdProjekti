@@ -4,9 +4,7 @@ import Library from "./components/Library";
 import AddCdForm from "./components/AddCdForm";
 import EditCdForm from "./components/EditCdForm";
 import './styles/main.css'
-
-import { getFirestore } from "firebase/firestore";
-import { collection, doc, addDoc, setDoc, deleteDoc, getDocs } from "firebase/firestore";
+import { getFirestore, collection, doc, addDoc, setDoc, deleteDoc, getDocs } from "firebase/firestore";
 
 function App({ fireStoreApp }) {
 
@@ -18,17 +16,17 @@ function App({ fireStoreApp }) {
   const db = getFirestore(fireStoreApp);
 
   React.useEffect(() => {
-    getLibrary();
+    getDocs(collection(db, "cd's"))
+      .then(response => {
+        let newList = [];
+        response.forEach(cd => {
+          newList.push(cd.data())
+        })
+        setCdList(newList)
+      })
   }, [])
 
-  async function getLibrary() {
-    let newCdList = [];
-    const querySnapshot = await getDocs(collection(db, "cd's"));
-    querySnapshot.forEach(cdDoc => {
-      newCdList.push(cdDoc.data())
-    })
-    setCdList(newCdList)
-  }
+
 
   function handleChange(event) {
     event.stopPropagation();
