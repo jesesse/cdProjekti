@@ -17,14 +17,14 @@ function App({ fireStoreApp }) {
   const [isFormEditCdOpen, setIsEditFormOpen] = React.useState(false)
   const db = getFirestore(fireStoreApp);
 
-  React.useEffect( ()=> {
+  React.useEffect(() => {
     getLibrary();
   }, [])
 
-  async function getLibrary(){
+  async function getLibrary() {
     let newCdList = [];
     const querySnapshot = await getDocs(collection(db, "cd's"));
-    querySnapshot.forEach(cdDoc=>{
+    querySnapshot.forEach(cdDoc => {
       newCdList.push(cdDoc.data())
     })
     setCdList(newCdList)
@@ -56,8 +56,8 @@ function App({ fireStoreApp }) {
     e.stopPropagation();
     e.preventDefault();
     const newCdRef = await addDoc(collection(db, "cd's"), cd);
-    await setDoc(newCdRef, {...cd, id: newCdRef.id});
-    setCdList(prev => prev.concat({...cd, id: newCdRef.id}))
+    await setDoc(newCdRef, { ...cd, id: newCdRef.id });
+    setCdList(prev => prev.concat({ ...cd, id: newCdRef.id }))
     setIsAddCdFormOpen(false)
   }
 
@@ -70,20 +70,21 @@ function App({ fireStoreApp }) {
   async function editCd(e, id) {
     e.stopPropagation();
     e.preventDefault();
-    setCdList(prev=>{
-      let newList = prev.map(cd=>{
-        if (cd.id === id) return editableCd 
-        else return cd;
+    const cdRef = doc(db, "cd's", id);
+    setDoc(cdRef, editableCd);
+    setCdList(prev => {
+      let newList = prev.map(cd => {
+        if (cd.id === id) return editableCd
+        return cd;
       })
-      console.log(newList)
       return newList;
     })
     setIsEditFormOpen(false)
-    
+
   }
 
-  function openEditForm(id){
-    setEditableCd(cdList.find(cd=>cd.id ===id))
+  function openEditForm(id) {
+    setEditableCd(cdList.find(cd => cd.id === id))
     setIsEditFormOpen(true)
   }
 

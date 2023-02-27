@@ -22,7 +22,7 @@ const EditCdForm = (props) => {
                 <input onChange={(e) => props.handleEditChange(e)} id="No" type="radio" className="listened" name="listened" value="No" />
             </fieldset>
 
-            <Button color="#a8ffa8" type="submit" onClick={(e) => props.editCd(e, props.id)}>Edit</Button>
+            <Button color="#a8ffa8" type="submit" onClick={(e) => props.editCd(e, props.editableCd.id)}>Edit</Button>
         </Form>
     )
 
